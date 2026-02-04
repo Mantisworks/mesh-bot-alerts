@@ -12,7 +12,12 @@ from datetime import datetime
 
 # --- CONFIG ---
 SERIAL_PORT = "/dev/ttyUSB0"
-PUGLIA_CH_INDEX = 1
+CH_INDEX = 1
+CITY = "Brindisi"
+REGION = "Puglia"
+LATITUDE = 40.63
+LONGITUDE = 17.93
+
 
 interface = None
 is_connected = False
@@ -41,7 +46,7 @@ def get_wind_alert_level(speed_kmh):
 # --- WEATHER FORECAST LOGIC ---
 def get_weather_report(full=True):
     try:
-        url = "https://api.open-meteo.com/v1/forecast?latitude=40.63&longitude=17.93&current=temperature_2m,relative_humidity_2m,weather_code,surface_pressure,wind_speed_10m,wind_gusts_10m"
+        url = f"https://api.open-meteo.com/v1/forecast?latitude={LATITUDE}&longitude={LONGITUDE}&current=temperature_2m,relative_humidity_2m,weather_code,surface_pressure,wind_speed_10m,wind_gusts_10m"
         d = requests.get(url, timeout=10).json()["current"]
         code = d['weather_code']
 
@@ -52,7 +57,7 @@ def get_weather_report(full=True):
         elif code >= 95: sky = "Temporale ⛈"
         else: sky = "Nuvoloso ☁️"
 
-        report = (f"📍 METEO BRINDISI\n"
+        report = (f"📍 Meteo {CITY}\n"
                   f"🌡 Temp: {d['temperature_2m']}°C\n"
                   f"☁️ Cielo: {sky}\n"
                   f"💧 Umidità: {d['relative_humidity_2m']}%\n"
@@ -79,8 +84,8 @@ def auto_monitor_task():
                     eq = eq_res["features"][0]
                     if eq["id"] != last_earthquake_id:
                         p = eq["properties"]
-                        msg = f"⚠️ ALERT SISMA INGV\n📊 Mag: {p['mag']}\n📍 {p['place']}\n📢 Nodo Mesh Brindisi"
-                        interface.sendText(msg, channelIndex=PUGLIA_CH_INDEX)
+                        msg = f"⚠️ ALERT SISMA INGV\n📊 Mag: {p['mag']}\n📍 {p['place']}\n📢 Nodo Mesh {CITY}"
+                        interface.sendText(msg, channelIndex=CH_INDEX)
                         last_earthquake_id = eq["id"]
             except: pass
 
@@ -96,13 +101,13 @@ def auto_monitor_task():
                         wind_level = get_wind_alert_level(w_data['wind_gusts_10m'])
 
                         if wind_level:
-                            msg = f"⚠️ {wind_level}\n🌪 Raffica: {w_data['wind_gusts_10m']} km/h\n📍 Zona Brindisi"
-                            interface.sendText(msg, channelIndex=PUGLIA_CH_INDEX)
+                            msg = f"⚠️ {wind_level}\n🌪 Raffica: {w_data['wind_gusts_10m']} km/h\n📍 Zona {CITY}"
+                            interface.sendText(msg, channelIndex=CH_INDEX)
                             alert_sent = True
 
                         # Controllo Pioggia (se non è già partito l'allerta vento)
                         elif w_data['weather_code'] >= 51:
-                            interface.sendText("⚠️ ALERT PUGLIA: Pioggia o Temporale a Brindisi! 🌧", channelIndex=PUGLIA_CH_INDEX)
+                            interface.sendText(f"⚠️ ALERT {REGION}: Pioggia o Temporale a {CITY}! 🌧", channelIndex=CH_INDEX)
                             alert_sent = True
 
                         if alert_sent:
@@ -152,7 +157,7 @@ def on_receive(packet, interface):
 def get_radio_propagation():
     try:
         # Recuperiamo dati di pressione e umidità
-        url = "https://api.open-meteo.com/v1/forecast?latitude=40.63&longitude=17.93&current=relative_humidity_2m,surface_pressure,is_day&hourly=pressure_msl"
+        url = f"https://api.open-meteo.com/v1/forecast?latitude={LATITUDE}&longitude={LONGITUDE}&current=relative_humidity_2m,surface_pressure,is_day&hourly=pressure_msl"
         d = requests.get(url, timeout=10).json()
         curr = d["current"]
 
