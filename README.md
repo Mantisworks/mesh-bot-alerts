@@ -1,4 +1,4 @@
-# Meshtastic Alert System Bot (Brindisi JN80XP)
+# Meshtastic Alert System Bot
 
 [![Python Version](https://img.shields.io/badge/python-3.8%2B-blue.svg)](https://www.python.org/)
 [![Meshtastic](https://img.shields.io/badge/mesh-Meshtastic-green.svg)](https://meshtastic.org/)
