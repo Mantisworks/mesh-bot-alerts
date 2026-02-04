@@ -51,4 +51,24 @@ This script provides real-time monitoring of **INGV** seismic data and **Open-Me
 ```bash
 git clone https://github.com/Mantisworks/mesh-bot-alerts.git
 
+2. **Configura la porta seriale in mesh-bot-alerts.py:**
+```python
+SERIAL_PORT = "/dev/ttyUSB0"
 
+3. **Avvia lo script:**
+```bash
+nohup python3 mesh-bot-alerts.py &
+
+---
+
+## 🌍 Personalizzazione Località / Localization
+1. **Coordinate Meteo:**
+Apri mesh-bot-alerts.py e modifica l'URL nella funzione get_weather_report() con la tua Latitudine/Longitudine.
+
+### ⚠️ Disclaimer
+[!CAUTION] ATTENZIONE: USO SPERIMENTALE
+SISTEMA NON UFFICIALE: Questo script non sostituisce i canali di allerta ufficiali della Protezione Civile.
+LIMITI TECNICI: Il funzionamento dipende dalla connessione internet e dalla stabilità radio.
+RESPONSABILITÀ: L'autore non è responsabile per mancate allerte o danni derivanti dall'uso dello script.
+
+Developed for the Meshtastic Puglia Community.
