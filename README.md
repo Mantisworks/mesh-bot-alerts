@@ -64,7 +64,7 @@ This Python script turns a Meshtastic node into an automated information gateway
 ### Setup
 1. Clona la repository:
    ```bash
-   git clone [https://github.com/tuo-username/meshtastic-puglia-gateway.git](https://github.com/tuo-username/meshtastic-puglia-gateway.git)
+   git clone [https://github.com/Mantisworks/meshtastic-puglia-gateway.git](https://github.com/Mantisworks/meshtastic-puglia-gateway.git)
 2. Configura la porta seriale nel file main.py:
    ```bash
    SERIAL_PORT = "/dev/ttyUSB0"  # Cambia in base al tuo sistema
@@ -80,14 +80,8 @@ Lo script è preconfigurato per la città di **Brindisi**. Per cambiare la local
 Puoi trovare le coordinate della tua città su Google Maps o tramite servizi come [LatLong.net](https://www.latlong.net/).
 
 ### 2. Modifica del Codice
-Apri il file `mesh-bot-alerts.py` e cerca l'URL all'interno della funzione `get_weather_report()`:
+Apri il file `mesh-bot-alerts.py` e cerca l'URL all'interno della funzione `get_weather_report()`. Sostituisci i valori di latitudine e longitudine con quelli della tua città:
 
 ```python
 # Esempio per Brindisi: latitude=40.63&longitude=17.93
 url = "[https://api.open-meteo.com/v1/forecast?latitude=XX.XX&longitude=YY.YY&current=](https://api.open-meteo.com/v1/forecast?latitude=XX.XX&longitude=YY.YY&current=)..."
-
-
-## ⚠️ Disclaimer
-Questo software è a scopo sperimentale. Non deve essere considerato un sistema di allertamento ufficiale. Fare sempre riferimento ai canali della Protezione Civile per la sicurezza personale. This software is for experimental purposes only. It is not an official emergency alert system. Always refer to official government channels for safety.
-
-Developed for the Meshtastic Puglia Community.
