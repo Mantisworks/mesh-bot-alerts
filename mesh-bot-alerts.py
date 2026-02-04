@@ -15,7 +15,7 @@ SERIAL_PORT = "/dev/ttyUSB0" # PATH della porta seriale dove è collegato il nod
 CH_INDEX = 1 # Canale mesh dove inviare gli alert (0 = Primario)
 CITY = "Brindisi" # Città
 REGION = "Puglia" # Regione
-LATITUDE = 40.63 # Latitudie (Utile per estrapolare da internet informazioni meteo)
+LATITUDE = 40.63 # Latitudine (Utile per estrapolare da internet informazioni meteo)
 LONGITUDE = 17.93 # Longitudine (Utile per estrapolare da internet informazioni meteo)
 
 
